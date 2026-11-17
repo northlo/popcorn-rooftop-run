@@ -33,13 +33,13 @@ An entry for [Make the best game](https://make.fun/bounty/best-game-01) on make.
 
 ## Screenshots
 
-![Title screen](screenshots/1-title.jpg)
+![Title screen](screenshots/IMG_7702.jpeg)
 
-![Sunset Harbor](screenshots/2-level1.jpg)
+![Sunset Harbor](screenshots/IMG_7703.jpeg)
 
-![Starfall Spires](screenshots/3-level3.jpg)
+![Starfall Spires](screenshots/IMG_7704.jpeg)
 
-![All nights clear](screenshots/4-complete.jpg)
+![All nights clear](screenshots/IMG_7705.jpeg)
 
 ## File structure
 
