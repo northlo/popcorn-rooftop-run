@@ -421,7 +421,7 @@ export function stepGame(game, input, dt = STEP) {
     cat.runPhase += dt * 13;
     // Remember the last safe footing for respawns.
     for (const pl of level.platforms) {
-      if (pl.w > 220 && cat.x >= pl.x && cat.x <= pl.x + pl.w) {
+      if (pl.w > 180 && cat.x >= pl.x && cat.x <= pl.x + pl.w) {
         game.checkpoint = { x: cat.x, y: pl.y };
         break;
       }
@@ -480,13 +480,13 @@ export function stepGame(game, input, dt = STEP) {
   // --- crows ---
   for (const c of level.crows) {
     updateCrow(game, c, dt);
-    const cw = 32;
-    const chh = 22;
+    const cw = 28;
+    const chh = 20;
     const overlap =
       cat.x + cat.w > c.x - cw / 2 && cat.x < c.x + cw / 2 &&
       cat.y + cat.h > c.y - chh / 2 && cat.y < c.y + chh / 2;
     if (!overlap || c.gone) continue;
-    const stomp = cat.vy > 0 && cat.y + cat.h - c.y < 26;
+    const stomp = cat.vy > 0 && cat.y + cat.h - c.y < 32;
     if (stomp || cat.pounceT > 0) {
       c.gone = true;
       run.crowsDown += 1;
