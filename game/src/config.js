@@ -14,12 +14,12 @@ export const PHYSICS = {
   runSpeed: 345,
   pounceSpeed: 760,
   pounceTime: 0.22,
-  pounceCooldown: 1.0,
+  pounceCooldown: 0.85,
   coyoteTime: 0.1,
   jumpBuffer: 0.12,
   maxFall: 1350,
   stepUp: 26, // a ledge this tall is auto-climbed while running
-  hurtInvuln: 1.1,
+  hurtInvuln: 1.4,
   killY: 900, // falling below this line costs a heart
 };
 
