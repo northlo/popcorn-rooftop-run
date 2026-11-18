@@ -7,7 +7,7 @@
 <style>
   html, body { margin: 0; padding: 0; background: #241832; height: 100%; }
   body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-  #wrap { width: min(1280px, 100vw); }
+  #wrap { width: min(1280px, 100vw, calc((100vh - 40px) * 16 / 9)); }
   canvas { display: block; width: 100%; height: auto; image-rendering: auto; background: #241832; }
   #hint { color: rgba(255,255,255,0.55); font: 14px "Trebuchet MS", Verdana, sans-serif; text-align: center; padding: 8px 0 0; }
 </style>
