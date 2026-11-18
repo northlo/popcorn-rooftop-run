@@ -7,7 +7,7 @@
 import { STEP, VIEW_W, VIEW_H } from './config.js';
 import { createGame, stepGame } from './world.js';
 import { drawGame } from './render.js';
-import { createFx, tickFx, fxBurst, fxDust, fxFeathers, fxShake, fxText, fxMeteor } from './fx.js';
+import { createFx, tickFx, fxBurst, fxDust, fxLandDust, fxSparkle, fxFeathers, fxShake, fxText, fxMeteor } from './fx.js';
 import { createAudio, ensureAudio, setMuted, tickMusic, playJump, playDouble, playPounce, playCrow, playHurt, playBell, playMilk, playFish, playGate } from './audio.js';
 import { createInput, attachInput, clearEdges } from './input.js';
 import { setupShot } from './shots.js';
@@ -73,6 +73,7 @@ function main() {
         case 'fish':
           playFish(audio, ev.mult);
           fxBurst(fx, ev.x, ev.y, { n: 10, color: '#ffd166', speed: 140 });
+          fxSparkle(fx, ev.x, ev.y);
           fxText(fx, ev.x, ev.y - 10, `+${ev.pts}`, '#ffd166');
           break;
         case 'bell':
@@ -104,7 +105,7 @@ function main() {
           fxBurst(fx, game.cat.x + 20, game.cat.y, { n: 24, color: '#ffe66d', speed: 260 });
           break;
         case 'land':
-          fxDust(fx, game.cat.x + 10, game.cat.y + game.cat.h);
+          fxLandDust(fx, game.cat.x + game.cat.w / 2, game.cat.y + game.cat.h);
           break;
         case 'bounce':
           playDouble(audio);
