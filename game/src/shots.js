@@ -50,7 +50,7 @@ function scenePlay2(game, fx) {
 function scenePlay3(game, fx) {
   const ok = runUntil(game, fx, (g) => {
     if (g.screen !== 'play' || g.levelIndex !== 2) return false;
-    if (g.cat.jumps < 2 || g.cat.grounded) return false;
+    if (g.cat.jumps < 2 || g.cat.grounded || g.cat.flip > 0.15 || g.cat.y < 170) return false;
     const nearBell = g.level.bells.some((b) => !b.taken && Math.abs(b.x - g.cat.x) < 200 && b.y < g.cat.y);
     const nearCrow = g.level.crows.some((c) => !c.gone && Math.abs(c.x - g.cat.x) < 220);
     return nearBell || nearCrow;
