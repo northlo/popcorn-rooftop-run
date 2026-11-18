@@ -419,10 +419,16 @@ export function stepGame(game, input, dt = STEP) {
   if (cat.grounded) {
     cat.coyote = P.coyoteTime;
     cat.runPhase += dt * 13;
-    // Remember the last safe footing for respawns.
+    // Remember the last safe footing for respawns. Record the platform
+    // itself, not the raw landing x: respawning exactly where the cat
+    // landed can put it right on the edge (or past it), with no time
+    // to react. Clamp the landing x to sit safely inside the platform
+    // instead of jumping all the way back to its left edge: that keeps
+    // the respawn safe while avoiding a long re-run of the platform.
     for (const pl of level.platforms) {
       if (pl.w > 180 && cat.x >= pl.x && cat.x <= pl.x + pl.w) {
-        game.checkpoint = { x: cat.x, y: pl.y };
+        const safeX = Math.max(pl.x + 60, Math.min(cat.x, pl.x + pl.w - 60));
+        game.checkpoint = { x: safeX, y: pl.y };
         break;
       }
     }
