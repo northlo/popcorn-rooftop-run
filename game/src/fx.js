@@ -37,6 +37,34 @@ export function fxDust(fx, x, y) {
   });
 }
 
+// A small puff of dust kicked out both ways on a hard landing.
+export function fxLandDust(fx, x, y) {
+  for (let i = 0; i < 9; i++) {
+    const dir = i % 2 ? 1 : -1;
+    fx.parts.push({
+      x: x + dir * (4 + Math.random() * 10), y: y - 2,
+      vx: dir * (50 + Math.random() * 90), vy: -25 - Math.random() * 45,
+      life: 0, max: 0.35 + Math.random() * 0.2, size: 3 + Math.random() * 3.5,
+      color: 'rgba(235, 220, 200, 0.75)', grav: 120, shape: 'dot',
+    });
+  }
+}
+
+// A little four-point twinkle where a Golden Fish was eaten.
+export function fxSparkle(fx, x, y) {
+  fx.parts.push({
+    x, y, vx: 0, vy: -20, life: 0, max: 0.45, size: 16,
+    color: '#fff7d6', grav: 0, shape: 'spark', rot: 0, vr: 3,
+  });
+  for (let i = 0; i < 4; i++) {
+    const a = (i / 4) * Math.PI * 2 + Math.PI / 4;
+    fx.parts.push({
+      x, y, vx: Math.cos(a) * 110, vy: Math.sin(a) * 110, life: 0, max: 0.35, size: 6,
+      color: '#ffe66d', grav: 0, shape: 'spark', rot: 0, vr: 5,
+    });
+  }
+}
+
 export function fxText(fx, x, y, str, color) {
   fx.texts.push({ x, y, str, color: color || '#ffffff', life: 0, max: 1.0 });
 }
@@ -94,7 +122,21 @@ export function drawFx(ctx, fx, camX) {
   for (const p of fx.parts) {
     const a = 1 - p.life / p.max;
     ctx.globalAlpha = a;
-    if (p.shape === 'feather') {
+    if (p.shape === 'spark') {
+      const r = p.size * (0.5 + 0.5 * a);
+      ctx.save();
+      ctx.translate(p.x - camX, p.y);
+      ctx.rotate(p.rot || 0);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -r);
+      ctx.quadraticCurveTo(0, 0, r, 0);
+      ctx.quadraticCurveTo(0, 0, 0, r);
+      ctx.quadraticCurveTo(0, 0, -r, 0);
+      ctx.quadraticCurveTo(0, 0, 0, -r);
+      ctx.fill();
+      ctx.restore();
+    } else if (p.shape === 'feather') {
       ctx.save();
       ctx.translate(p.x - camX, p.y);
       ctx.rotate(p.rot || 0);
